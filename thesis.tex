@@ -1,0 +1,194 @@
+%##########################################################
+%  J. Scott Hosking, Ph.D Thesis 
+%  Submitted in September 2009
+%  Compiles in `pdflatex' (Ubuntu) and `TexShop' (Mac OS X)
+% 
+%  * Addedd "\newpage" at the end of some sections to force 
+%    the headers to appear correctly
+%##########################################################
+
+\documentclass[12pt,a4paper,onesided]{report}
+
+\textwidth15cm
+\textheight21.5cm
+\topmargin=0.0cm
+\linespread{1.3}             % One and a half line spacing
+\usepackage{fancyhdr}        % Fancy headers and footers
+\usepackage[times]{quotchap} % Fancy chapter pages
+\usepackage{lscape,graphicx} % Allow figures to be displayed on the page in landscape
+\usepackage{multirow}        % To merge cells in tables
+\usepackage{colortbl}        % use colour backgroud in tables
+% \usepackage{rotating}        % For sideways tables/figures
+\usepackage{amssymb}         % Include extra symbols (including \gtrsim and \lesssim)
+\usepackage{amsmath}         % For Display equations (better than eqnarray)
+\usepackage{mathptmx}        % Times fonts for text and math
+\usepackage{natbib}          % Used for citations (see *.bib file)
+% \usepackage{ifthen}	     % to switch to twosided within document
+
+% Define table & figure caption formatting
+\usepackage[font=small,format=plain, labelfont=bf,up,textfont=it,up]{caption}
+
+% Add PDF bookmarks & coloured links
+\usepackage{color,hyperref}
+\definecolor{darkblue}{rgb}{0.0,0.0,0.3}
+\hypersetup{colorlinks,breaklinks,
+            linkcolor=black,urlcolor=black,
+            anchorcolor=black,citecolor=black}  % can change 'black' to 'darkblue'
+
+% Keep footnotes on one page (don't allow them to span on to a second page)
+\interfootnotelinepenalty=10000
+
+%##########################################################
+% Begin Document
+%##########################################################
+\begin{document}
+
+\renewcommand{\thefootnote}{\fnsymbol{footnote}} % set symbol format for footnotes
+\setlength{\parindent}{0mm}
+
+\setlength{\tabcolsep}{5pt}  % increases the column seperation in tables
+\setlength{\jot}{15pt}       % Spacing between multiple equations
+
+\renewcommand\chapterheadstartvskip{\vspace{0cm}} % adjust the white space above Chapter title
+\renewcommand\chapterheadendvskip{\vspace{1cm}}   % adjust the white space below Chapter title
+
+% Headers and Footers (L=left, R=right, E=even pages, O=odd pages)
+\pagestyle{fancy}
+\fancyhead{} % clear all header fields
+\fancyfoot{} % clear all footer fields
+\fancyhead[LE,RO]{\bfseries \thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
+\renewcommand{\sectionmark}[1]{\markright{#1}{}}
+
+% Define the headers and footers on the Chapter Pages
+\fancypagestyle{plain}{
+\fancyhf{} % clear all header and footer fields
+\fancyfoot[RO]{\bfseries \thepage} % except the center
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}}
+
+%##########################################################
+% Front Matter
+%##########################################################
+
+\def\thepage{\roman{page}}   % Use lowercase roman numerals for front matter
+
+% Define header content (L=left, R=right, E=even pages, O=odd pages)
+\fancyhead[RE]{\textit{\nouppercase\leftmark}}
+\fancyhead[LO]{\textit{\nouppercase\leftmark}}
+
+% Title , Declaration and Dedication
+\input ../Additionals/title.tex % add doubleline spacing? 
+\input ../Additionals/declaration.tex
+\input ../Additionals/dedication.tex
+
+\tableofcontents
+\renewcommand*\listfigurename{List of figures} \listoffigures
+\renewcommand*\listtablename{List of tables}   \listoftables
+
+\setlength{\parskip}{0.75cm} % Set space between paragraphs (default = 0.0cm)
+
+% add `markboth' incase the sections go onto a second page and thus need a header
+\input ../Additionals/acknow.tex
+\input ../Additionals/abstract.tex
+\input ../Additionals/glossary.tex
+
+%##########################################################
+% Body Matter
+%##########################################################
+\newpage                     % start a new page
+\setcounter{page}{1}         % reset page counter
+\setcounter{chapter}{0}      % reset chapter counter
+\def\thepage{\arabic{page}}  % Use normal numbering for body matter
+
+% Define header content
+\fancyhead[RE]{\textit{\thechapter ~ \nouppercase\leftmark}}
+\fancyhead[LO]{\textit{\thesection ~ \nouppercase\rightmark}}
+
+\chapter{Introduction}
+\label{ch:chapter1}
+\input ../Chap1/1-atmosphere.tex
+\input ../Chap1/1-atmos_transport.tex
+\input ../Chap1/1-stratospheric_ozone.tex
+\input ../Chap1/1-TTL.tex
+\input ../Chap1/1-water_vapour.tex
+\input ../Chap1/1-VSLS.tex
+\input ../Chap1/1-tropical_convection.tex
+\input ../Chap1/1-aims.tex
+
+\chapter{Methodology}
+\label{ch:chapter2}
+\input ../Chap2/2-UM.tex
+\input ../Chap2/2-exp_design.tex
+\input ../Chap2/2-model_analysis.tex
+
+\chapter{Modelling the location of deep tropical convection}
+\label{ch:chapter3}
+\input ../Chap3/3-Intro.tex
+\input ../Chap3/3-30day_background.tex
+\input ../Chap3/3-olr_proxy.tex
+\input ../Chap3/3-constraints.tex
+\input ../Chap3/3-conclusions.tex
+
+\chapter{The TTL and deep tropical convection}
+\label{ch:chapter4}
+\input ../Chap4/4-Intro.tex
+\input ../Chap4/4-TTL.tex
+\input ../Chap4/4-temp_H2O.tex
+\input ../Chap4/4-convective_transport.tex
+\input ../Chap4/4-conclusions.tex
+
+\chapter{Tropical convective transport and loading of VSLS into the TTL}
+\label{ch:chapter5}
+\input ../Chap5/5-Intro.tex
+\input ../Chap5/5-VSLS_transport.tex
+\input ../Chap5/5-coastal_VSLS.tex
+\input ../Chap5/5-LLT_transport.tex
+\input ../Chap5/5-conv_significance.tex
+\input ../Chap5/5-TTL_to_Strat.tex
+\input ../Chap5/5-conclusions.tex
+
+\chapter{Seasonal and regional patterns of tropical surface-to-TTL transport}
+\label{ch:chapter6}
+\input ../Chap6/6-Intro.tex
+\input ../Chap6/6-surface_TTL.tex
+\input ../Chap6/6-conclusions.tex
+
+\chapter{Conclusions}
+\label{ch:chapter7}
+\input ../Chap7/7-discussion.tex
+\input ../Chap7/7-further_work.tex
+
+%##########################################################
+% Back Matter
+%##########################################################
+\newpage
+\clearpage
+
+% Define header content
+\fancyhead[RE]{\textit{Bibliography}}
+\fancyhead[LO]{\textit{Bibliography}}
+
+% Bibliography
+\addcontentsline{toc}{chapter}{Bibliography}
+\bibliography{/home/scott/Dropbox/PhD/Thesis/bibtex}
+\bibliographystyle{Bib/agu04full_thesis}
+\bibpunct{[}{]}{;}{a}{,}{,}
+% \bibliographystyle{unsrt} 
+\markboth{Bibliography}{} % define name for headers on pages n>1
+
+% Appendices
+\appendix
+\renewcommand{\theequation}{A-\arabic{equation}}
+\setcounter{equation}{0}  % reset equation counter 
+\renewcommand{\thefigure}{A-\arabic{figure}}
+\setcounter{figure}{0}    % reset equation counter 
+
+\chapter*{Appendices} \addcontentsline{toc}{chapter}{Appendices} 
+\markboth{Appendices}{} % define name for headers on pages n>1
+\fancyhead[RE]{\textit{\leftmark}}
+\fancyhead[LO]{\textit{\leftmark}}
+\input ../Additionals/appendices.tex
+
+\end{document}
